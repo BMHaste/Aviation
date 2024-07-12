@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+<body>
+    
+
+    <h2>States List</h2>
+  <ul id="stateList"></ul>
+  <script src="dump.js"></script>
+    <script>
+        var parsed = JSON.parse(dumped)
+        for (i = 0; i < dumped.length; i++){
+            document.write(dumped[i])
+        }
+    </script>
+</body>
+</html>

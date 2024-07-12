@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Should I Fly?</title>
+    <link rel="stylesheet" href="AirlineStyles.css">
+    <link rel="icon" type="image/x-icon" href="plane_icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dump.js"></script>
+  </head>
+  
+  <body>
+    <div id="home-layout">
+
+
+      <div id="side-bar-L">
+
+        <button id="home-button" onclick="location.reload()">Should I Fly?</button>
+        <div id="blank"></div>
+        <canvas id="Chart" style="height: 100%;"></canvas>
+        <script>
+          var parsed = JSON.parse(times)
+          var xValues = ["Morning", "Afternoon", "Night"];
+          var barColors = ["white", "gray", "#464646"];
+          new Chart("Chart", {
+            type: "bar",
+            data: {
+              labels: xValues,
+              datasets: [{
+                backgroundColor: barColors,
+                data: parsed
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins:{
+                legend: {display: false},
+                title: {
+                  display: true,
+                  color: '#C4C4C4',
+                  text: "Incidents By Time Of Day",
+                  weight: 'bold'
+                }
+              }
+            }
+          });
+        </script>
+      </div>
+
+
+      <div id="planes-M">
+
+        <div id="map-title">
+          <p id="actual-map-title">50 Most Recent Aviation Incidents</p>
+        </div>
+
+        <div id="map"></div>
+        <script>
+            let map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 0, lng: 0 },
+                    zoom: 2,
+                });
+                var parsed = JSON.parse(all_planes)
+                const geocoder = new google.maps.Geocoder();
+                parsed.forEach(city => {
+                  let addr = city[0] + ", " + city[1] + ", " + city[2]
+                  geocoder.geocode({ address: addr }, (results, status) => {
+                    if (status === 'OK') {
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        console.error('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+              });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO3GzOKJ8w3IN0969psmMStCxqZjdckLI&loading=async&callback=initMap" async defer></script>
+      </div>
+
+
+      <div id="side-bar-R">
+
+        <div id="side-bar-R-buttons">
+          <button id="faq-button">FAQ</button>
+          <button id="about-button">About</button>
+        </div>
+        <p id="side-bar-R-cities">Incidents By State</p>
+        
+        <table id="cities-table"></table>
+          <script>
+              var parsed = JSON.parse(sorted_states);
+              const table = document.getElementById('cities-table');
+              for (i = 0; i < parsed.length; i++){
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.id = 'box' + i;
+                cell.textContent = `${parsed[i][0]}: ${parsed[i][1]}`;
+                row.appendChild(cell);
+                table.appendChild(row);
+              }
+          </script>
+      </div>
+    </div>
+  </body>
+</html>
