@@ -101,7 +101,6 @@
     border: 2px solid white;
     cursor: pointer;
     text-shadow: 1px 1px 5px #fff, 1px 1px 5px #ccc;
-
 }
 
 #side-bar-R-cities{
@@ -123,7 +122,6 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-
 }
 
 #cities-table tr{

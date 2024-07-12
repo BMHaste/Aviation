@@ -170,7 +170,6 @@ counts = Counter(states)
 states2 = list(counts.items())
 sorted = sorted(states2, key=lambda x: x[1], reverse=True)
 
-
 morning = 0
 afternoon = 0
 night = 0
