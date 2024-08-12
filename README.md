@@ -7,7 +7,7 @@ a comprehensive look at the timing and location of 50 of the most recent aviatio
 - Bar graph displaying the # of incidents at each time of day
 - List of the states within the US with the most incidents
 ## Installation
-
+Clone the repository and run the python file to update the data to the most current version
 ## Languages/Software Used
 - HTML
 - CSS
